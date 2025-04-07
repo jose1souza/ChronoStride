@@ -211,8 +211,15 @@ public class FormSistema extends javax.swing.JFrame {
           LocalDate dataFormatada = LocalDate.parse
             (dataStr,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
           novoRecorde.setDataRecorde(dataFormatada) ;
-          minhaPilha.push(novoRecorde);
-          mostrarPilha(minhaPilha, listPilha);
+        if(minhaPilha.isEmpty() || novoRecorde.getTempo() <
+           minhaPilha.peek().getTempo()){
+minhaPilha.push(novoRecorde);
+            mostrarPilha(minhaPilha,listaPilha);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Seu recorde tem tempo maior que o recorde do topo!",
+                                          "Aviso",JOptionPane.WARNING_MESSAGE);
+        }
        
 
     }//GEN-LAST:event_btnAddActionPerformed
