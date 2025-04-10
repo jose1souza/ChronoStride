@@ -46,8 +46,12 @@ public class Pilha<T> {
        // return dado;
         return this.elementos[this.topo];
     }
-    
-    
+    public void clear(){
+    for(int i = 0;i <= topo;i++){
+        this.elementos[i] = null;
+    }
+        topo = -1;
+    }
     
     @Override
     public String toString(){
