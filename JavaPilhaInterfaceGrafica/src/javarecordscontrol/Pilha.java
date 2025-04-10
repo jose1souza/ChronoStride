@@ -1,7 +1,8 @@
-
 package javarecordscontrol;
 
-public class Pilha<T> {
+import java.util.*;
+
+public class Pilha<T> implements Iterable<T>{
     private T[] elementos;
     private int topo;
     
@@ -63,5 +64,28 @@ public class Pilha<T> {
         
         return retorno.toString();
     }
-    
+        @Override
+        public Iterator<T> iterator(){
+            return new PilhaIterator();
+    }
+        private class PilhaIterator implements Iterator<T>{
+            private int atual = topo;
+                @Override
+                public boolean hasNext(){
+                    return atual >= 0; // em uma linha
+                   /* if(atual >= 0){
+                        return true;
+                }
+                    else{
+                        return false;
+                }*/
+                }
+                @Override
+                public T next(){
+                    /*T dado = elementos[atual];
+                    atual--;
+                    return dado;*/
+                    return elementos[atual--]; // em uma linha
+                }
+        }
 }

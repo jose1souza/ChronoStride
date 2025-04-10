@@ -15,10 +15,12 @@ public class FormSistema extends javax.swing.JFrame {
         initComponents();
     }
     
-    void mostrarPilha(Pilha<Recorde> p,JTextArea meuList){
+    void mostrarPilha(Pilha<Recorde> pilha,JTextArea meuList){
         meuList.setText("");
-        meuList.append(p.toString());
-        
+        // meuList.append(p.toString());
+            for(Recorde r: pilha){
+                meuList.append(r.getNome() + ":" + r.getTempo() + "segundos" + "\n");
+            }
     }
     
     void mostrarPilhaDesempilhada(Pilha<Recorde> p,JTextArea meuList1){
@@ -211,7 +213,7 @@ public class FormSistema extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(192, Short.MAX_VALUE))))
+                        .addContainerGap(12, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,48 +268,13 @@ public class FormSistema extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
-    
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        Recorde novoRecorde = new Recorde();
-        novoRecorde.setNome(txtNome.getText());
-        novoRecorde.setTempo(Double.parseDouble(txtTempo.getText()));
-          String dataStr = txtData.getText();
-          LocalDate dataFormatada = LocalDate.parse
-            (dataStr,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-          novoRecorde.setDataRecorde(dataFormatada) ;
-        if(minhaPilha.isEmpty() || novoRecorde.getTempo() <=
-           minhaPilha.peek().getTempo()){
-           minhaPilha.push(novoRecorde);
-           mostrarPilha(minhaPilha, listAux1);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Seu recorde tem tempo maior que o recorde do topo!",
-                                          "Aviso",JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-            if(!minhaPilha.isEmpty()){
-                Recorde elementoRemovido = minhaPilha.pop();
-                    novaPilha.push(elementoRemovido);
-                    mostrarPilha(minhaPilha,listAux1);
-                    mostrarPilha(novaPilha,listAux);
-        }
-        
-    }//GEN-LAST:event_btnRemoveActionPerformed
-
-    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
+    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataActionPerformed
+    }//GEN-LAST:event_btnSalvar1ActionPerformed
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
-
-    private void txtTempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTempoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTempoActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnLimpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpaActionPerformed
         minhaPilha.clear();
@@ -316,14 +283,49 @@ public class FormSistema extends javax.swing.JFrame {
         mostrarPilha(novaPilha,listAux);
     }//GEN-LAST:event_btnLimpaActionPerformed
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    }//GEN-LAST:event_txtDataActionPerformed
 
-    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+    private void txtTempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTempoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSalvar1ActionPerformed
+    }//GEN-LAST:event_txtTempoActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        Recorde novoRecorde = new Recorde();
+        novoRecorde.setNome(txtNome.getText());
+        novoRecorde.setTempo(Double.parseDouble(txtTempo.getText()));
+        String dataStr = txtData.getText();
+        LocalDate dataFormatada = LocalDate.parse
+        (dataStr,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        novoRecorde.setDataRecorde(dataFormatada) ;
+        if(minhaPilha.isEmpty() || novoRecorde.getTempo() <=
+            minhaPilha.peek().getTempo()){
+            minhaPilha.push(novoRecorde);
+            mostrarPilha(minhaPilha, listAux1);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Seu recorde tem tempo maior que o recorde do topo!",
+                "Aviso",JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        if(!minhaPilha.isEmpty()){
+            Recorde elementoRemovido = minhaPilha.pop();
+            novaPilha.push(elementoRemovido);
+            mostrarPilha(minhaPilha,listAux1);
+            mostrarPilha(novaPilha,listAux);
+        }
+
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
+
+
+    
     /**
      * @param args the command line arguments
      */
